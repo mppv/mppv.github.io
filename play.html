@@ -17,14 +17,13 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Se importan las librerias de Phaser-->
+    <script type="text/javascript" src="assets/js/phaser.js"></script>
+    <!-- Se importan los estados del juego -->
+    <script type="text/javascript" src="assets/states/game.js"></script>
+    <script type="text/javascript" src="assets/states/beginning.js"></script>
+    <!-- Este es el administrador de los estados de juego, y cómo se dan sus transacciones -->
+    <script type="text/javascript" src="assets/states/manager.js"></script>
   </head>
 
   <body>
@@ -44,7 +43,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="index.html">Inicio</a></li>
-            <li><a href="about.html">Acerca de</a></li>
+            <li><a href="about.html">¿Cómo jugar?</a></li>
             <li><a href="play.html">¡Jugar!</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -56,18 +55,18 @@
 		<div class="row centered mt mb">
 			<div class="col-lg-8 col-lg-offset-2">
 				<h4>ABOUT THE PROJECT</h4>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-			</div>
-			<div class="col-lg-10 col-lg-offset-1 mt">
-				<img class="img-responsive" src="assets/img/pr01.jpg">
-				<br>
-				<img class="img-responsive" src="assets/img/pr02.jpg">
+        <br></br>
+        <div id="project"></div>
+        <br></br>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+
+
 			</div>
 
 		</div><! --/row -->
 	</div><! --/container -->
 
-	
+
 	<div id="footerwrap">
 		<div class="container">
 			<div class="row centered">
