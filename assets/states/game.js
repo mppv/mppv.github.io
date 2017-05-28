@@ -8,6 +8,7 @@ var saltar;
 var mira = 'left';
 var tiempoSalto = 0;
 
+
 var game =  {
   preload:function(){
     project.load.image('monkey', 'assets/img/project/Mankey.png')
@@ -27,8 +28,8 @@ var game =  {
     // El archivo anterior depende de la imagen que solicita tiles, puede verificarse en los assets.
     nivel.addTilesetImage('Dungeon');
     // Dentro del json, este es el nombre de ...
-    nivel.setCollisionBetween(1, 2000);
-    //nivel.setCollisionByExclusion([ 1081, 1091, 1090, 1053, 1055, 1063, 1087, 1155 ]);
+    nivel.setCollisionBetween(1, 2870);
+    //nivel.setCollisionByExclusion([2880]);
     capa = nivel.createLayer('Ground');
     //capa.debug = true;
     capa.resizeWorld();
@@ -42,7 +43,7 @@ var game =  {
     project.physics.enable(jugador, Phaser.Physics.ARCADE);
     jugador.body.bounce.y = 0.2;
     jugador.body.collideWorldBounds = true;
-    jugador.body.setSize(32, 32, 0, 0);
+    jugador.body.setSize(20, 32, 0, 0);
     //jugador.body.immovable = true;
     project.physics.arcade.enable([jugador, capa]);
     //efectoRebote
