@@ -62,7 +62,7 @@ var game =  {
     //project.input.onDown.add(this.salto, this);
 
 project.input.onDown.add(function(pointer) {        swipeCoordX = pointer.clientX;        swipeCoordY = pointer.clientY;        }, this);
-    project.input.onUp.add(function(pointer) {        swipeCoordX2 = pointer.clientX;        swipeCoordY2 = pointer.clientY;        if(swipeCoordX2 < swipeCoordX - swipeMinDistance){     jugador.animations.play('left');        }else if(swipeCoordX2 > swipeCoordX + swipeMinDistance){            console.log("right");        }else if(swipeCoordY2 < swipeCoordY - swipeMinDistance){            console.log("up");        }else if(swipeCoordY2 > swipeCoordY + swipeMinDistance){            console.log("down");        }    }, this);
+    project.input.onUp.add(function(pointer) {        swipeCoordX2 = pointer.clientX;        swipeCoordY2 = pointer.clientY;        if(swipeCoordX2 < swipeCoordX - swipeMinDistance){     jugador.animations.play('left');        }else if(swipeCoordX2 > swipeCoordX + swipeMinDistance){            project.animations.play('right');        }else if(swipeCoordY2 < swipeCoordY - swipeMinDistance){            project.animations.play('up');        }else if(swipeCoordY2 > swipeCoordY + swipeMinDistance){            project.animations.play('down');        }    }, this);
   },
 
   salto: function(){
