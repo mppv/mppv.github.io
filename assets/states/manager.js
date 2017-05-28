@@ -1,4 +1,4 @@
-var project = new Phaser.Game(750, 480, Phaser.CANVAS, 'project');
+var project = new Phaser.Game(320, 480, Phaser.CANVAS, 'project');
 
 // A continuación se muestran los estados del juego
 // Este contiene el inicio del juego, que inicia cuando el usuario presiona ENTER
