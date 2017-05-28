@@ -43,7 +43,7 @@ var game =  {
     project.physics.enable(jugador, Phaser.Physics.ARCADE);
     jugador.body.bounce.y = 0.2;
     jugador.body.collideWorldBounds = true;
-    jugador.body.setSize(20, 32, 0, 0);
+    jugador.body.setSize(16, 32, 0, 0);
     //jugador.body.immovable = true;
     project.physics.arcade.enable([jugador, capa]);
     //efectoRebote
@@ -58,6 +58,12 @@ var game =  {
     cursores = project.input.keyboard.createCursorKeys();
     saltar = project.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
+    project.input.onDown.add(this.salto, this);
+
+  },
+
+  salto: function(){
+    jugador.body.velocity.y = -400;
   },
 
   update: function(){
@@ -114,7 +120,7 @@ var game =  {
   render: function(){
     //project.debug.pointer(project.input.mousePointer);
     //project.debug.pointer(project.input.pointer1);
-    project.debug.bodyInfo(jugador);
+    //project.debug.bodyInfo(jugador);
     //project.debug.text(project.time.physicsElapsed, 32, 32);
   }
 }
