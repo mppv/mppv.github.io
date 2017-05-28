@@ -26,7 +26,7 @@ var game =  {
     // Dentro del json, este es el nombre de ...
 
     nivel.setCollisionByExclusion([ 1139, 1138, 1101, 1103, 1111, 1135, 1203 ]);
-capa = nivel.createLayer('Ground');
+    capa = nivel.createLayer('Ground');
     capa.resizeWorld();
     // Y se le da gravedad gracias a la libreria ARCADE de Phaser
     project.physics.arcade.gravity.y = 100;
@@ -48,7 +48,7 @@ capa = nivel.createLayer('Ground');
   },
 
   update: function(){
-     project.physics.arcade.collide(jugador, capa);
+    Phaser.physics.arcade.collide(jugador, capa);
      jugador.body.velocity.x = 0;
   },
 
