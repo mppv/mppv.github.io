@@ -9,9 +9,12 @@ var game =  {
     //  Note: on iOS as soon as you use 6 fingers you'll active the minimise app gesture - and there's nothing we can do to stop that, sorry
 
     project.input.addPointer();
+
   },
 
   render: function(){
     project.debug.pointer(project.input.mousePointer);
+    project.debug.pointer(project.input.pointer1);
+
   }
 }

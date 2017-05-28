@@ -1,7 +1,7 @@
 var start = {
 
     preload: function(){
-         project.load.image('ini', 'assets/img/project/inicio.png');
+         project.load.image('ini', 'assets/img/project/inicio.jpg');
     },
 
     create: function () {
