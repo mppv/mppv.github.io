@@ -59,7 +59,7 @@ var game =  {
     cursores = project.input.keyboard.createCursorKeys();
     saltar = project.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    project.input.onDown.add(this.salto, this);
+    //project.input.onDown.add(this.salto, this);
 
 project.input.onDown.add(function(pointer) {        swipeCoordX = pointer.clientX;        swipeCoordY = pointer.clientY;        }, this);    game.input.onUp.add(function(pointer) {        swipeCoordX2 = pointer.clientX;        swipeCoordY2 = pointer.clientY;        if(swipeCoordX2 < swipeCoordX - swipeMinDistance){            console.log("left");        }else if(swipeCoordX2 > swipeCoordX + swipeMinDistance){            console.log("right");        }else if(swipeCoordY2 < swipeCoordY - swipeMinDistance){            console.log("up");        }else if(swipeCoordY2 > swipeCoordY + swipeMinDistance){            console.log("down");        }    }, this);
   },
