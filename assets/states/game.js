@@ -8,11 +8,6 @@ var saltar;
 var mira = 'left';
 var tiempoSalto = 0;
 
-// Variables destinadas a la deteccion de Swipes
-var inicialX;
-var inicialY;
-var finalX;
-var finalY;
 
 var game =  {
   preload:function(){
@@ -61,60 +56,21 @@ var game =  {
 
     //  Note: on iOS as soon as you use 6 fingers you'll active the minimise app gesture - and there's nothing we can do to stop that, sorry
 
-    project.input.addPointer();
+    //project.input.addPointer();
 
     project.input.keyboard.addCallbacks(this,this.onDown);
     cursores = project.input.keyboard.createCursorKeys();
     saltar = project.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    //project.input.onDown.add(this.salto, this);
-    project.input.onDown.add(this.comienzoSwipe, this);
     
+    this.onTouch();
+
+
   },
 
-  comienzoSwipe: function(){
-    inicialX = project.input.worldX;
-    inicialY = project.input.worldY;
-    project.input.onDown.remove(this.comienzoSwipe, this);
-    project.input.onUp.add(this.finSwipe, this);
-  },
-
-  finSwipe: function(){
-    finalX = project.input.worldX;
-    finalY = project.input.worldY;
-
-    var distX = inicialX-finalX;
-    var distY = inicialY-finalY;
-
-    if(Math.abs(distX)>Math.abs(distY)*20 && Math.abs(distX)>40){
-      // moving left, calling move function with horizontal and vertical tiles to move as arguments
-      if(distX>0){
-                  jugador.animations.play('left');
-                  mira = 'left';
-               }
-               // moving right, calling move function with horizontal and vertical tiles to move as arguments
-               else{
-                  jugador.animations.play('right');
-                  mira = 'right';
-               }
-    }
-    // in order to have a vertical swipe, we need that y distance is at least twice the x distance
-    // and the amount of vertical distance is at least 10 pixels
-    if(Math.abs(distY)>Math.abs(distX)*20 && Math.abs(distY)>40){
-      // moving up, calling move function with horizontal and vertical tiles to move as arguments
-      if(distY>0){
-                    jugador.animations.play('up');
-                    mira = 'up';
-               }
-               // moving down, calling move function with horizontal and vertical tiles to move as arguments
-               else{
-                    jugador.animations.play('down');
-                    mira = 'down';
-               }
-    } 
-    //
-    project.input.onDown.add(this.comienzoSwipe, this);
-    project.input.onUp.remove(this.finSwipe, this);
+  onTouch: function(){
+    if((project.input.mousePointer.x < 160) && project.input.mousePointer.isUp)
+      project.input.onDown.add(this.salto, this); 
   },
 
   salto: function(){
@@ -177,7 +133,7 @@ var game =  {
   },
 
   render: function(){
-    //project.debug.pointer(project.input.mousePointer);
+    project.debug.pointer(project.input.mousePointer);
     //project.debug.pointer(project.input.pointer1);
     //project.debug.bodyInfo(jugador);
     //project.debug.text(project.time.physicsElapsed, 32, 32);
