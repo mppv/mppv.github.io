@@ -1,3 +1,6 @@
+/* PRESENTADO POR : Monica Patricia Pineda Vargas */
+
+
 // Se inicializa el proyecto en Phaser
 // Se le indica el tamanio
 var project = new Phaser.Game(320, 480, Phaser.CANVAS, 'project');

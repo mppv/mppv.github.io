@@ -284,6 +284,8 @@ var game =  {
 
   En el caso que este en la posicion pero no este con todas las llaves
   se indica cuantas hacen falta
+
+  Llama al estado ganar
   */
   win: function(){
     if(jugador.x == 0 && jugador.y==1098){

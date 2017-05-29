@@ -1,3 +1,4 @@
+// Accion de ganar, y vuelve al estado inicial
 var win = {
 
     preload: function(){

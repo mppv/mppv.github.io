@@ -1,3 +1,4 @@
+// Estado perder y vuelve al estado jugar
 var lose = {
 
     preload: function(){
