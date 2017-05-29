@@ -26,7 +26,7 @@ var game =  {
 
   create: function(){
     
-    project.input.keyboard.addCallbacks(this,this.onDown);
+    
 
     project.stage.backgroundColor = '#454645';
     pantalla = project.add.tileSprite(0, 0, 320, 480, 'fondo');
@@ -62,6 +62,8 @@ var game =  {
     //  Note: on iOS as soon as you use 6 fingers you'll active the minimise app gesture - and there's nothing we can do to stop that, sorry
 
     project.input.addPointer();
+
+    project.input.keyboard.addCallbacks(this,this.onDown);
     cursores = project.input.keyboard.createCursorKeys();
     saltar = project.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -84,6 +86,32 @@ var game =  {
     var distX = inicialX-finalX;
     var distY = inicialY-finalY;
 
+    if(Math.abs(distX)>Math.abs(distY)*20 && Math.abs(distX)>40){
+      // moving left, calling move function with horizontal and vertical tiles to move as arguments
+      if(distX>0){
+                  jugador.animations.play('left');
+                  mira = 'left';
+               }
+               // moving right, calling move function with horizontal and vertical tiles to move as arguments
+               else{
+                  jugador.animations.play('right');
+                  mira = 'right';
+               }
+    }
+    // in order to have a vertical swipe, we need that y distance is at least twice the x distance
+    // and the amount of vertical distance is at least 10 pixels
+    if(Math.abs(distY)>Math.abs(distX)*20 && Math.abs(distY)>40){
+      // moving up, calling move function with horizontal and vertical tiles to move as arguments
+      if(distY>0){
+                    jugador.animations.play('up');
+                    mira = 'up';
+               }
+               // moving down, calling move function with horizontal and vertical tiles to move as arguments
+               else{
+                    jugador.animations.play('down');
+                    mira = 'down';
+               }
+    } 
     //
     project.input.onDown.add(this.comienzoSwipe, this);
     project.input.onUp.remove(this.finSwipe, this);
@@ -94,7 +122,7 @@ var game =  {
   },
 
   onDown: function(){
-        if (cursores.left.isDown)
+      if (cursores.left.isDown)
       {
           jugador.body.velocity.x = -150;
 
