@@ -63,13 +63,13 @@ var game =  {
     cursores = project.input.keyboard.createCursorKeys();
     saltar = project.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    
-    
+    project.input.onDown.add(this.salto, this);
 
 
   },
 
   onTouch: function(){
+
     if (project.input.activePointer.isDown) {
       if (Math.floor(project.input.x / (project.width / 2)) === LEFT) {
           //alert("vamos, izquierda");
@@ -107,6 +107,8 @@ var game =  {
                 mira = 'idle';
             }
       }
+
+
   },
 
   salto: function(){
