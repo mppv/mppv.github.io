@@ -14,7 +14,7 @@
 
 // Se declaran las variables que se usaran a lo largo de este script
 var nivel;
-var llave;
+var puntaje;
 var conjuntoPatrones;
 var pantalla;
 var capa;
@@ -24,6 +24,20 @@ var saltar;
 var mira = 'left';
 var tiempoSalto = 0;
 var RIGHT = 0, LEFT = 1;
+var contador = 0;
+
+
+function hitkey(jugador, tile){
+  tile.alpha = 0.2;
+  tile.collideDown = false;
+  tile.collideUp = false;
+  tile.collideRight = false;
+  tile.collideLeft = false;
+  contador += 1;
+  capa.dirty = true;
+  puntaje.setText("Score: " + contador);
+  return false;
+}
 
 // Se declara el estado game, el cual contiene todo el jugable
 var game =  {
@@ -34,7 +48,7 @@ var game =  {
     project.load.image('fondo', 'assets/img/project/sky.jpg');
     project.load.tilemap('textura', 'assets/map/desert.json', null, Phaser.Tilemap.TILED_JSON);
     project.load.image('Dungeon', 'assets/map/Dungeon_map.png');
-    project.load.image('llave', 'assets/img/project/Key.png');
+    project.load.image('Key', 'assets/map/Key.png');
     
   },
 
@@ -45,6 +59,8 @@ var game =  {
     // Es cargado el fondo al Canvas, y se habiita la funcion camara
     pantalla = project.add.tileSprite(0, 0, 320, 480, 'fondo');
     pantalla.fixedToCamera = true;
+
+
 
     // Se crea un nivel con el mapa realizado en json con las texturas
     // El archivo json contiene los nombres descritos como parametros, 
@@ -57,9 +73,19 @@ var game =  {
     // del ambiente
     nivel.setCollisionBetween(1, 2870);
 
+    nivel.addTilesetImage('Key');
+    nivel.setTileIndexCallback(3073, hitkey, this);
+
+
+    //nivel.setTileLocationCallback(2, 0, 1, 1, this.hitkey, this);
+
     // y, se aniade como capa y se incorpora al tamanio del Canvas
     capa = nivel.createLayer('Ground');
     capa.resizeWorld();
+
+    puntaje = project.add.text(10, 10, "Score: 0" , { font: "30px Bree Serif"} );
+    puntaje.fixedToCamera = true;
+    puntaje.addColor("#ecfcf9", 0);
 
     // Se habilita la funcion ARCADE de Phaser, el cual implementa colisiones
     // y la funcion de gravedad de los elementos en el mundo
@@ -72,7 +98,7 @@ var game =  {
     project.physics.enable(jugador, Phaser.Physics.ARCADE);
     jugador.body.bounce.y = 0.2;
     jugador.body.collideWorldBounds = true;
-    jugador.body.setSize(16, 32, 0, 0);
+    jugador.body.setSize(16, 16, 0, 0);
 
     //jugador.body.immovable = true;
     project.physics.arcade.enable([jugador, capa]);
@@ -80,13 +106,15 @@ var game =  {
     //jugador.body.bounce.setTo(1, 1)
 
     project.camera.follow(jugador);
-    //  addPointer tells Phaser to add another pointer to Input, so here we are basically saying "allow up to 6 pointers + the mouse"
 
-    //  Note: on iOS as soon as you use 6 fingers you'll active the minimise app gesture - and there's nothing we can do to stop that, sorry
-    llave = project.add.sprite(32, 32, 'llave');
+
+
+/*    llave = project.add.sprite(222, 128, 'llave');
     llave.name = 'llame';
     project.physics.enable(llave, Phaser.Physics.ARCADE);
-    llave.body.collideWorldBounds = true;
+    llave.body.collideWorldBounds = true;*/
+
+
 
     //project.input.addPointer();
 
@@ -143,7 +171,8 @@ var game =  {
   },
 
   salto: function(){
-    jugador.body.velocity.y = -400;
+    jugador.body.velocity.y = -150;
+    tiempoSalto = project.time.now + 750;
   },
 
   onDown: function(){
@@ -188,13 +217,14 @@ var game =  {
       
       if (saltar.isDown && jugador.body.onFloor() && project.time.now > tiempoSalto)
       {
-          jugador.body.velocity.y = -250;
+          jugador.body.velocity.y = -150;
           tiempoSalto = project.time.now + 750;
       }
     },
 
   update: function(){
     project.physics.arcade.collide(capa, jugador);
+    //project.physics.arcade.collide(capa, llave);
 
     jugador.body.velocity.x = 0;
 
