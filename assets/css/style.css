@@ -20,6 +20,9 @@
 
 /* Se modifica el tipo de letra */
 @import url(https://fonts.googleapis.com/css?family=Bree+Serif:400,700);
+img {
+    width: 100%;
+}
 
 /* Permite centrar el contenido del CANVAS de Phaser */
 canvas {
