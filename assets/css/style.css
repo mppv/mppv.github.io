@@ -60,12 +60,20 @@ canvas {
 	text-align: center
 }
 
-.mt {
+.mt2 {
 	margin-top: 80px;
 }
 
-.mb {
+.mb2 {
 	margin-bottom: 80px;
+}
+
+.mt {
+	margin-top: 20px;
+}
+
+.mb {
+	margin-bottom: 20px;
 }
 
 /* ==========================================================================
@@ -208,7 +216,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #workwrap h4 {
 	font-weight: 400;
-	color: #ffffff
+	color: #4a4a4a;
 }
 
 #aboutwrap {
