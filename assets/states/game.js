@@ -36,6 +36,11 @@ function hitkey(jugador, tile){
   return false;
 }
 
+function hitpokeball(jugador, tile){
+  project.state.start('perder');    
+  return false;
+}
+
 // Se declara el estado game, el cual contiene todo el jugable
 var game =  {
   // Son precargadas los recursos del juego (sprite de jugador, fondo, 
@@ -46,6 +51,7 @@ var game =  {
     project.load.tilemap('textura', 'assets/map/desert.json', null, Phaser.Tilemap.TILED_JSON);
     project.load.image('Dungeon', 'assets/map/Dungeon_map.png');
     project.load.image('Key', 'assets/map/Key.png');
+    project.load.image('Pokeball', 'assets/map/Pokeball.png');
     
   },
 
@@ -72,6 +78,10 @@ var game =  {
 
     nivel.addTilesetImage('Key');
     nivel.setTileIndexCallback(3073, hitkey, this);
+
+    nivel.addTilesetImage('Pokeball');
+    nivel.setTileIndexCallback(3074, hitpokeball, this);
+
 
 
     //nivel.setTileLocationCallback(2, 0, 1, 1, this.hitkey, this);

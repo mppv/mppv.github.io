@@ -15,17 +15,17 @@ var win = {
         enter.onDown.addOnce(this.start, this);
 
         /* Resetea la cantidad de diplomas en cada juego */
-        //contador = 0;
+        contador = 0;
     },
 
     update: function () {
       if(project.input.activePointer.justPressed()) {
-        project.state.start('juego');
+        project.state.start('start');
       }
     },
     
     // reinicia el juego   
     start: function () {
-        project.state.start('juego');    
+        project.state.start('start');    
     }	
 }
