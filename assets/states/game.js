@@ -32,7 +32,7 @@ function hitkey(jugador, tile){
     contador++;
   tile.alpha = 0.2;
   capa.dirty = true;
-  puntaje.setText("Score: " + contador);
+  puntaje.setText("Puntaje: " + contador);
   return false;
 }
 
@@ -80,7 +80,7 @@ var game =  {
     capa = nivel.createLayer('Ground');
     capa.resizeWorld();
 
-    puntaje = project.add.text(10, 10, "Score: 0" , { font: "30px Bree Serif"} );
+    puntaje = project.add.text(10, 10, "Puntaje: 0" , { font: "24px Bree Serif"} );
     puntaje.fixedToCamera = true;
     puntaje.addColor("#ecfcf9", 0);
     puntaje.stroke = '#000000';
@@ -96,7 +96,7 @@ var game =  {
     project.physics.enable(jugador, Phaser.Physics.ARCADE);
     jugador.body.bounce.y = 0.2;
     jugador.body.collideWorldBounds = true;
-    jugador.body.setSize(24, 24, 0, 0);
+    jugador.body.setSize(22, 22, 0, 0);
 
     //jugador.body.immovable = true;
     project.physics.arcade.enable([jugador, capa]);
@@ -221,7 +221,13 @@ var game =  {
     },
 
   win:function(){
-    //if(contador == 6){}
+    if(jugador.x == 0 && jugador.y==1098){
+      if(contador == 6){
+        game.state.start('ganar');
+      } else {
+        puntaje.setText("Faltan " + (6-contador) + " llave(s).")
+      }
+    }
   },
 
   update: function(){
@@ -235,7 +241,7 @@ var game =  {
   },
 
   render: function(){
-    project.debug.pointer(project.input.mousePointer);
+    project.debug.text(jugador.x +  " * " + jugador.y, 64,64);
   }
     
 }

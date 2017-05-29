@@ -6,7 +6,7 @@ project.state.add('start', start);
 // Estado "jugar"
 project.state.add('juego', game);
 // Estado "ganar"
-//project.state.add('ganar', win);
+project.state.add('ganar', win);
 // Estado "perder"
 //project.state.add('perder', lose);
 
