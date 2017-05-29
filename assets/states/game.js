@@ -7,6 +7,7 @@ var cursores;
 var saltar;
 var mira = 'left';
 var tiempoSalto = 0;
+var RIGHT = 0, LEFT = 1;
 
 
 var game =  {
@@ -63,14 +64,49 @@ var game =  {
     saltar = project.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     
-    this.onTouch();
+    
 
 
   },
 
   onTouch: function(){
-    if((project.input.mousePointer.x < 160) && project.input.mousePointer.isUp)
-      project.input.onDown.add(this.salto, this); 
+    if (project.input.activePointer.isDown) {
+      if (Math.floor(project.input.x / (project.width / 2)) === LEFT) {
+          alert("vamos, izquierda");
+          //  Move to the left      
+          jugador.body.velocity.x = -150;
+          if (mira != 'left')
+          {
+                jugador.animations.play('left');
+                mira = 'left';
+          }
+      }
+      if (Math.floor(project.input.x / (project.width / 2)) === RIGHT) {
+          //  Move to the right    
+          jugador.body.velocity.x = 150;
+          if (mira != 'right')
+            {
+                jugador.animations.play('right');
+                mira = 'right';
+            }
+      }
+      } else {
+            if (mira != 'idle')
+            {
+                jugador.animations.stop();
+
+                if (mira == 'left')
+                {
+                    jugador.frame = 0;
+                }
+                else
+                {
+                    jugador.frame = 5;
+                }
+
+                mira = 'idle';
+            }
+      }
   },
 
   salto: function(){
@@ -129,6 +165,7 @@ var game =  {
 
     jugador.body.velocity.x = 0;
 
+    this.onTouch();
   
   },
 
