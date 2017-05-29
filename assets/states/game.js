@@ -8,7 +8,11 @@ var saltar;
 var mira = 'left';
 var tiempoSalto = 0;
 
-var swipeCoordX,swipeCoordY,swipeCoordX2, swipeCoordY2,swipeMinDistance = 100;  
+// Variables destinadas a la deteccion de Swipes
+var inicialX;
+var inicialY;
+var finalX;
+var finalY;
 
 var game =  {
   preload:function(){
@@ -22,6 +26,8 @@ var game =  {
 
   create: function(){
     
+    project.input.keyboard.addCallbacks(this,this.onDown);
+
     project.stage.backgroundColor = '#454645';
     pantalla = project.add.tileSprite(0, 0, 320, 480, 'fondo');
     pantalla.fixedToCamera = true;
@@ -55,69 +61,91 @@ var game =  {
 
     //  Note: on iOS as soon as you use 6 fingers you'll active the minimise app gesture - and there's nothing we can do to stop that, sorry
 
-    //project.input.addPointer();
+    project.input.addPointer();
     cursores = project.input.keyboard.createCursorKeys();
     saltar = project.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     //project.input.onDown.add(this.salto, this);
+    project.input.onDown.add(this.comienzoSwipe, this);
+    
+  },
 
-project.input.onDown.add(function(pointer) {        swipeCoordX = pointer.clientX;        swipeCoordY = pointer.clientY;        }, this);
-    project.input.onUp.add(function(pointer) {        swipeCoordX2 = pointer.clientX;        swipeCoordY2 = pointer.clientY;        if(swipeCoordX2 < swipeCoordX - swipeMinDistance){     jugador.animations.play('left');        }else if(swipeCoordX2 > swipeCoordX + swipeMinDistance){            project.animations.play('right');        }else if(swipeCoordY2 < swipeCoordY - swipeMinDistance){            project.animations.play('up');        }else if(swipeCoordY2 > swipeCoordY + swipeMinDistance){            project.animations.play('down');        }    }, this);
+  comienzoSwipe: function(){
+    inicialX = project.input.worldX;
+    inicialY = project.input.worldY;
+    project.input.onDown.remove(this.comienzoSwipe, this);
+    project.input.onUp.add(this.finSwipe, this);
+  },
+
+  finSwipe: function(){
+    finalX = project.input.worldX;
+    finalY = project.input.worldY;
+
+    var distX = inicialX-finalX;
+    var distY = inicialY-finalY;
+
+    //
+    project.input.onDown.add(this.comienzoSwipe, this);
+    project.input.onUp.remove(this.finSwipe, this);
   },
 
   salto: function(){
     jugador.body.velocity.y = -400;
   },
 
+  onDown: function(){
+        if (cursores.left.isDown)
+      {
+          jugador.body.velocity.x = -150;
+
+          if (mira != 'left')
+          {
+              jugador.animations.play('left');
+              mira = 'left';
+          }
+      }
+      else if (cursores.right.isDown)
+      {
+          jugador.body.velocity.x = 150;
+
+          if (mira != 'right')
+          {
+              jugador.animations.play('right');
+              mira = 'right';
+          }
+      }
+      else
+      {
+          if (mira != 'idle')
+          {
+              jugador.animations.stop();
+
+              if (mira == 'left')
+              {
+                  jugador.frame = 0;
+              }
+              else
+              {
+                  jugador.frame = 5;
+              }
+
+              mira = 'idle';
+          }
+      }
+      
+      if (saltar.isDown && jugador.body.onFloor() && project.time.now > tiempoSalto)
+      {
+          jugador.body.velocity.y = -250;
+          tiempoSalto = project.time.now + 750;
+      }
+    },
+
   update: function(){
     project.physics.arcade.collide(capa, jugador);
 
     jugador.body.velocity.x = 0;
 
-    if (cursores.left.isDown)
-    {
-        jugador.body.velocity.x = -150;
-
-        if (mira != 'left')
-        {
-            jugador.animations.play('left');
-            mira = 'left';
-        }
-    }
-    else if (cursores.right.isDown)
-    {
-        jugador.body.velocity.x = 150;
-
-        if (mira != 'right')
-        {
-            jugador.animations.play('right');
-            mira = 'right';
-        }
-    }
-    else
-    {
-        if (mira != 'idle')
-        {
-            jugador.animations.stop();
-
-            if (mira == 'left')
-            {
-                jugador.frame = 0;
-            }
-            else
-            {
-                jugador.frame = 5;
-            }
-
-            mira = 'idle';
-        }
-    }
-    
-    if (saltar.isDown && jugador.body.onFloor() && game.time.now > tiempoSalto)
-    {
-        jugador.body.velocity.y = -250;
-        tiempoSalto = game.time.now + 750;
-    }
+  
   },
 
   render: function(){
