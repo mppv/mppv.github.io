@@ -1,3 +1,18 @@
+/*
+
+  PRESENTADO POR:
+  Monica Patricia Pineda Vargass
+
+  REFERENCIAS:
+  Este trabajo se basa en los ejemplos Multi Touch y Starstruck de Phaser, 
+  disponibles en https://phaser.io/examples
+
+  Adicional a ello, para el soporte de Touch, fueron revisados diversos foros
+  en el sitio: http://www.html5gamedevs.com/
+
+*/
+
+// Se declaran las variables que se usaran a lo largo de este script
 var nivel;
 var conjuntoPatrones;
 var pantalla;
@@ -9,11 +24,12 @@ var mira = 'left';
 var tiempoSalto = 0;
 var RIGHT = 0, LEFT = 1;
 
-
+// Se declara el estado game, el cual contiene todo el jugable
 var game =  {
+  // Son precargadas los recursos del juego (sprite de jugador, fondo, 
+  // el laberinto en formato json, y el conjunto de texturas)
   preload:function(){
-    project.load.image('monkey', 'assets/img/project/Mankey.png')
-    // Se cargan el fondo y el laberinto a resolver
+    project.load.image('monkey', 'assets/img/project/Mankey.png');
     project.load.image('fondo', 'assets/img/project/sky.jpg');
     project.load.tilemap('textura', 'assets/map/desert.json', null, Phaser.Tilemap.TILED_JSON);
     project.load.image('Dungeon', 'assets/map/Dungeon_map.png');
@@ -21,32 +37,41 @@ var game =  {
   },
 
   create: function(){
-    
-    
-
+    // color por defecto del fondo
     project.stage.backgroundColor = '#454645';
+
+    // Es cargado el fondo al Canvas, y se habiita la funcion camara
     pantalla = project.add.tileSprite(0, 0, 320, 480, 'fondo');
     pantalla.fixedToCamera = true;
+
+    // Se crea un nivel con el mapa realizado en json con las texturas
+    // El archivo json contiene los nombres descritos como parametros, 
+    // lo que permite su facil acceso al momento de ejecucion    
     nivel = project.add.tilemap('textura');
-    // El archivo anterior depende de la imagen que solicita tiles, puede verificarse en los assets.
     nivel.addTilesetImage('Dungeon');
-    // Dentro del json, este es el nombre de ...
+
+    // La textura cargada contiene mas de 3000 patrones. El personaje
+    // colisionara entre la 1 y la 2870, y los restantes seran parte
+    // del ambiente
     nivel.setCollisionBetween(1, 2870);
-    //nivel.setCollisionByExclusion([2880]);
+
+    // y, se aniade como capa y se incorpora al tamanio del Canvas
     capa = nivel.createLayer('Ground');
-    //capa.debug = true;
     capa.resizeWorld();
+
+    // Se habilita la funcion ARCADE de Phaser, el cual implementa colisiones
+    // y la funcion de gravedad de los elementos en el mundo
     project.physics.startSystem(Phaser.Physics.ARCADE);
-    // Y se le da gravedad gracias a la libreria ARCADE de Phaser
-    project.physics.arcade.gravity.y = 250;
-    // Se carga el perro y su ubicación en el laberinto
+    project.physics.arcade.gravity.y = 100;
+
+    // Se carga el elemento jugable y se 
     jugador = project.add.sprite(32, 32, 'monkey');
     jugador.name = 'monkey';
-    
     project.physics.enable(jugador, Phaser.Physics.ARCADE);
     jugador.body.bounce.y = 0.2;
     jugador.body.collideWorldBounds = true;
     jugador.body.setSize(16, 32, 0, 0);
+
     //jugador.body.immovable = true;
     project.physics.arcade.enable([jugador, capa]);
     //efectoRebote
@@ -173,8 +198,5 @@ var game =  {
 
   render: function(){
     project.debug.pointer(project.input.mousePointer);
-    //project.debug.pointer(project.input.pointer1);
-    //project.debug.bodyInfo(jugador);
-    //project.debug.text(project.time.physicsElapsed, 32, 32);
   }
 }
