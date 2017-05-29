@@ -72,7 +72,7 @@ var game =  {
   onTouch: function(){
     if (project.input.activePointer.isDown) {
       if (Math.floor(project.input.x / (project.width / 2)) === LEFT) {
-          alert("vamos, izquierda");
+          //alert("vamos, izquierda");
           //  Move to the left      
           jugador.body.velocity.x = -150;
           if (mira != 'left')
