@@ -28,12 +28,9 @@ var contador = 0;
 
 
 function hitkey(jugador, tile){
+  if(tile.alpha == 1)
+    contador++;
   tile.alpha = 0.2;
-  tile.collideDown = false;
-  tile.collideUp = false;
-  tile.collideRight = false;
-  tile.collideLeft = false;
-  contador += 1;
   capa.dirty = true;
   puntaje.setText("Score: " + contador);
   return false;
@@ -86,7 +83,8 @@ var game =  {
     puntaje = project.add.text(10, 10, "Score: 0" , { font: "30px Bree Serif"} );
     puntaje.fixedToCamera = true;
     puntaje.addColor("#ecfcf9", 0);
-
+    puntaje.stroke = '#000000';
+    puntaje.strokeThickness = 2;
     // Se habilita la funcion ARCADE de Phaser, el cual implementa colisiones
     // y la funcion de gravedad de los elementos en el mundo
     project.physics.startSystem(Phaser.Physics.ARCADE);
@@ -98,7 +96,7 @@ var game =  {
     project.physics.enable(jugador, Phaser.Physics.ARCADE);
     jugador.body.bounce.y = 0.2;
     jugador.body.collideWorldBounds = true;
-    jugador.body.setSize(16, 16, 0, 0);
+    jugador.body.setSize(24, 24, 0, 0);
 
     //jugador.body.immovable = true;
     project.physics.arcade.enable([jugador, capa]);
@@ -222,6 +220,10 @@ var game =  {
       }
     },
 
+  win:function(){
+    //if(contador == 6){}
+  },
+
   update: function(){
     project.physics.arcade.collide(capa, jugador);
     //project.physics.arcade.collide(capa, llave);
@@ -229,10 +231,11 @@ var game =  {
     jugador.body.velocity.x = 0;
 
     this.onTouch();
-  
+    this.win();
   },
 
   render: function(){
     project.debug.pointer(project.input.mousePointer);
   }
+    
 }
