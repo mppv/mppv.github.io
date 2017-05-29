@@ -74,7 +74,7 @@ var game =  {
       if (Math.floor(project.input.x / (project.width / 2)) === LEFT) {
           //alert("vamos, izquierda");
           //  Move to the left      
-          jugador.body.velocity.x = -150;
+          jugador.body.velocity.x = 150;
           if (mira != 'left')
           {
                 jugador.animations.play('left');
@@ -83,7 +83,7 @@ var game =  {
       }
       if (Math.floor(project.input.x / (project.width / 2)) === RIGHT) {
           //  Move to the right    
-          jugador.body.velocity.x = 150;
+          jugador.body.velocity.x = -150;
           if (mira != 'right')
             {
                 jugador.animations.play('right');
