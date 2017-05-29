@@ -14,6 +14,7 @@
 
 // Se declaran las variables que se usaran a lo largo de este script
 var nivel;
+var llave;
 var conjuntoPatrones;
 var pantalla;
 var capa;
@@ -33,6 +34,7 @@ var game =  {
     project.load.image('fondo', 'assets/img/project/sky.jpg');
     project.load.tilemap('textura', 'assets/map/desert.json', null, Phaser.Tilemap.TILED_JSON);
     project.load.image('Dungeon', 'assets/map/Dungeon_map.png');
+    project.load.image('llave', 'assets/img/project/Key.png');
     
   },
 
@@ -81,6 +83,10 @@ var game =  {
     //  addPointer tells Phaser to add another pointer to Input, so here we are basically saying "allow up to 6 pointers + the mouse"
 
     //  Note: on iOS as soon as you use 6 fingers you'll active the minimise app gesture - and there's nothing we can do to stop that, sorry
+    llave = project.add.sprite(32, 32, 'llave');
+    llave.name = 'llame';
+    project.physics.enable(llave, Phaser.Physics.ARCADE);
+    llave.body.collideWorldBounds = true;
 
     //project.input.addPointer();
 
